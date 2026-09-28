@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>TrackLab — Demo Store</title>
+
+  <!-- Google Tag Manager -->
+  <!-- We will add your GTM code here later -->
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #111;
+      color: white;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 22px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 14px;
+    }
+
+    .hero {
+      background: white;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #111;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .btn:hover {
+      opacity: 0.85;
+    }
+
+    .products {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .products h2 {
+      margin-bottom: 20px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .product-image {
+      height: 160px;
+      background: #ddd;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      color: #777;
+    }
+
+    .product h3 {
+      margin-bottom: 5px;
+    }
+
+    .price {
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .product button {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .contact {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 30px 20px;
+      background: white;
+      border-radius: 8px;
+    }
+
+    .contact h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    footer {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      margin-top: 50px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <h1>TrackLab</h1>
+
+    <nav>
+      <a href="#products">Products</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <h2>Tracking Practice Store</h2>
+
+    <p>A simple demo website for learning Google Tag Manager and GA4.</p>
+
+    <a
+      href="#products"
+      class="btn"
+      id="shop-now">
+      Shop Now
+    </a>
+
+  </section>
+
+
+  <!-- PRODUCTS -->
+  <section class="products" id="products">
+
+    <h2>Products</h2>
+
+    <div class="product-grid">
+
+
+      <!-- PRODUCT 1 -->
+      <div class="product">
+
+        <div class="product-image">
+          Product Image
+        </div>
+
+        <h3>Classic Handbag</h3>
+
+        <p class="price">৳1,290</p>
+
+        <button
+          class="btn view-product"
+          data-product-id="HB001"
+          data-product-name="Classic Handbag"
+          data-product-price="1290">
+          View Product
+        </button>
+
+        <button
+          class="btn add-to-cart"
+          data-product-id="HB001"
+          data-product-name="Classic Handbag"
+          data-product-price="1290">
+          Add to Cart
+        </button>
+
+      </div>
+
+
+      <!-- PRODUCT 2 -->
+      <div class="product">
+
+        <div class="product-image">
+          Product Image
+        </div>
+
+        <h3>Mini Table Lamp</h3>
+
+        <p class="price">৳1,500</p>
+
+        <button
+          class="btn view-product"
+          data-product-id="LP001"
+          data-product-name="Mini Table Lamp"
+          data-product-price="1500">
+          View Product
+        </button>
+
+        <button
+          class="btn add-to-cart"
+          data-product-id="LP001"
+          data-product-name="Mini Table Lamp"
+          data-product-price="1500">
+          Add to Cart
+        </button>
+
+      </div>
+
+
+      <!-- PRODUCT 3 -->
+      <div class="product">
+
+        <div class="product-image">
+          Product Image
+        </div>
+
+        <h3>Portable Fan</h3>
+
+        <p class="price">৳590</p>
+
+        <button
+          class="btn view-product"
+          data-product-id="FN001"
+          data-product-name="Portable Fan"
+          data-product-price="590">
+          View Product
+        </button>
+
+        <button
+          class="btn add-to-cart"
+          data-product-id="FN001"
+          data-product-name="Portable Fan"
+          data-product-price="590">
+          Add to Cart
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CONTACT / LEAD FORM -->
+  <section class="contact" id="contact">
+
+    <h2>Contact Us</h2>
+
+    <form id="contact-form">
+
+      <div class="form-group">
+
+        <label for="name">
+          Name
+        </label>
+
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your name"
+          required>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="email">
+          Email
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="you@example.com"
+          required>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="message">
+          Message
+        </label>
+
+        <textarea
+          id="message"
+          name="message"
+          placeholder="Write your message">
+        </textarea>
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="btn"
+        id="submit-form">
+        Send Message
+      </button>
+
+    </form>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    TrackLab Demo Store
+
+  </footer>
+
+
+  <!-- BASIC JAVASCRIPT -->
+  <script>
+
+    /*
+     * This JavaScript is intentionally simple.
+     * We will use it later to practice:
+     *
+     * - Click tracking
+     * - Custom events
+     * - DataLayer
+     * - Event parameters
+     * - E-commerce tracking
+     */
+
+    // Add-to-cart buttons
+    document.querySelectorAll(".add-to-cart").forEach(function(button) {
+
+      button.addEventListener("click", function() {
+
+        const productId =
+          button.getAttribute("data-product-id");
+
+        const productName =
+          button.getAttribute("data-product-name");
+
+        const productPrice =
+          button.getAttribute("data-product-price");
+
+        alert(productName + " added to cart!");
+
+      });
+
+    });
+
+
+    // Product view buttons
+    document.querySelectorAll(".view-product").forEach(function(button) {
+
+      button.addEventListener("click", function() {
+
+        const productName =
+          button.getAttribute("data-product-name");
+
+        alert("You viewed " + productName);
+
+      });
+
+    });
+
+
+    // Contact form
+    document
+      .getElementById("contact-form")
+      .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        alert("Thank you! Your message has been submitted.");
+
+      });
+
+  </script>
+
+</body>
+</html>
