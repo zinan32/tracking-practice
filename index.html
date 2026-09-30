@@ -399,40 +399,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      * - E-commerce tracking
      */
 
-    // Add-to-cart buttons
-    document.querySelectorAll(".add-to-cart").forEach(function(button) {
+    // Make sure the GTM dataLayer exists
+window.dataLayer = window.dataLayer || [];
 
-      button.addEventListener("click", function() {
+// Add-to-cart buttons
+document.querySelectorAll(".add-to-cart").forEach(function(button) {
 
-        const productId =
-          button.getAttribute("data-product-id");
+  button.addEventListener("click", function() {
 
-        const productName =
-          button.getAttribute("data-product-name");
+    const productId =
+      button.getAttribute("data-product-id");
 
-        const productPrice =
-          button.getAttribute("data-product-price");
+    const productName =
+      button.getAttribute("data-product-name");
 
-        alert(productName + " added to cart!");
+    const productPrice =
+      Number(button.getAttribute("data-product-price"));
 
-      });
-
+    // Send product information to the GTM dataLayer
+    window.dataLayer.push({
+      event: "add_to_cart",
+      product_id: productId,
+      product_name: productName,
+      price: productPrice,
+      currency: "BDT"
     });
 
+    alert(productName + " added to cart!");
 
-    // Product view buttons
-    document.querySelectorAll(".view-product").forEach(function(button) {
+  });
 
-      button.addEventListener("click", function() {
-
-        const productName =
-          button.getAttribute("data-product-name");
-
-        alert("You viewed " + productName);
-
-      });
-
-    });
+});
 
 
     // Contact form
