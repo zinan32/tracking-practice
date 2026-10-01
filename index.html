@@ -402,6 +402,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // Make sure the GTM dataLayer exists
 window.dataLayer = window.dataLayer || [];
 
+
+// TrackLab cart storage
+let cart = [];
+
+function updateCart(productId, productName, productPrice) {
+  const existingProduct = cart.find(
+    item => item.item_id === productId
+  );
+
+  if (existingProduct) {
+    existingProduct.quantity += 1;
+  } else {
+    cart.push({
+      item_id: productId,
+      item_name: productName,
+      price: productPrice,
+      quantity: 1
+    });
+  }
+
+  console.log("Current cart:", cart);
+}
+
+
 // Add-to-cart buttons
 document.querySelectorAll(".add-to-cart").forEach(function(button) {
 
@@ -415,6 +439,7 @@ document.querySelectorAll(".add-to-cart").forEach(function(button) {
 
     const productPrice =
       Number(button.getAttribute("data-product-price"));
+      updateCart(productId, productName, productPrice);
 
     // Send product information to the GTM dataLayer
     // Clear previous ecommerce data
