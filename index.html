@@ -417,13 +417,29 @@ document.querySelectorAll(".add-to-cart").forEach(function(button) {
       Number(button.getAttribute("data-product-price"));
 
     // Send product information to the GTM dataLayer
-    window.dataLayer.push({
-      event: "add_to_cart",
-      product_id: productId,
-      product_name: productName,
-      price: productPrice,
-      currency: "BDT"
-    });
+    // Clear previous ecommerce data
+window.dataLayer.push({
+  ecommerce: null
+});
+
+// Send GA4 recommended ecommerce structure
+window.dataLayer.push({
+  event: "add_to_cart",
+
+  ecommerce: {
+    currency: "BDT",
+    value: productPrice,
+
+    items: [
+      {
+        item_id: productId,
+        item_name: productName,
+        price: productPrice,
+        quantity: 1
+      }
+    ]
+  }
+});
 
     alert(productName + " added to cart!");
 
