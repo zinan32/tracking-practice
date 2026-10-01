@@ -1,555 +1,1192 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrackLab — E-commerce Demo</title>
 
-  <title>TrackLab — Demo Store</title>
-
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-5WZ27HW4');</script>
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){
+w[l]=w[l]||[];
+w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+j.async=true;
+j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5WZ27HW4');
+</script>
 <!-- End Google Tag Manager -->
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      color: #222;
-      line-height: 1.6;
-    }
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-    header {
-      background: #111;
-      color: white;
-      padding: 18px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+body{
+font-family:Arial,sans-serif;
+background:#f5f6f8;
+color:#222;
+line-height:1.6
+}
 
-    header h1 {
-      font-size: 22px;
-    }
+header{
+background:#111;
+color:white;
+padding:16px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:12px
+}
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 15px;
-      font-size: 14px;
-    }
+header h1{font-size:23px}
 
-    .hero {
-      background: white;
-      padding: 50px 20px;
-      text-align: center;
-    }
+nav a{
+color:white;
+text-decoration:none;
+margin-left:15px;
+font-size:14px
+}
 
-    .hero h2 {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
+.hero{
+background:white;
+padding:55px 20px;
+text-align:center
+}
 
-    .hero p {
-      color: #666;
-      margin-bottom: 25px;
-    }
+.hero h2{font-size:30px;margin-bottom:10px}
+.hero p{color:#666;margin-bottom:20px}
 
-    .btn {
-      display: inline-block;
-      background: #111;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      text-decoration: none;
-      font-size: 15px;
-    }
+.btn{
+background:#111;
+color:white;
+border:0;
+padding:12px 18px;
+border-radius:5px;
+cursor:pointer;
+font-size:14px;
+text-decoration:none;
+display:inline-block
+}
 
-    .btn:hover {
-      opacity: 0.85;
-    }
+.btn:hover{opacity:.85}
+.btn:disabled{opacity:.5;cursor:not-allowed}
 
-    .products {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
+.secondary{background:#555}
+.danger{background:#b42318}
 
-    .products h2 {
-      margin-bottom: 20px;
-    }
+.container{
+max-width:1000px;
+margin:35px auto;
+padding:0 18px
+}
 
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
+.section-title{margin-bottom:20px}
 
-    .product {
-      background: white;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
+.search-form{
+display:flex;
+gap:8px;
+margin-bottom:25px
+}
 
-    .product-image {
-      height: 160px;
-      background: #ddd;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 15px;
-      color: #777;
-    }
+.search-form input{flex:1}
 
-    .product h3 {
-      margin-bottom: 5px;
-    }
+input,textarea,select{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:5px;
+font-size:15px;
+background:white
+}
 
-    .price {
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
+.product-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px
+}
 
-    .product button {
-      width: 100%;
-      margin-top: 8px;
-    }
+.product{
+background:white;
+padding:18px;
+border-radius:9px;
+box-shadow:0 2px 8px rgba(0,0,0,.06)
+}
 
-    .contact {
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 30px 20px;
-      background: white;
-      border-radius: 8px;
-    }
+.product-image{
+height:150px;
+background:#e8e8e8;
+border-radius:6px;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-bottom:14px;
+color:#777
+}
 
-    .contact h2 {
-      margin-bottom: 20px;
-    }
+.product h3{margin-bottom:5px}
+.price{font-weight:bold;margin-bottom:12px}
+.product button{width:100%;margin-top:8px}
 
-    .form-group {
-      margin-bottom: 15px;
-    }
+.panel{
+background:white;
+padding:22px;
+border-radius:9px;
+margin-top:30px;
+box-shadow:0 2px 8px rgba(0,0,0,.05)
+}
 
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 14px;
-      font-weight: bold;
-    }
+.cart-item{
+border-bottom:1px solid #eee;
+padding:15px 0;
+display:flex;
+justify-content:space-between;
+gap:12px;
+flex-wrap:wrap
+}
 
-    input,
-    textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 15px;
-    }
+.cart-item:last-child{border-bottom:0}
 
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
+.quantity-controls{
+display:flex;
+align-items:center;
+gap:10px;
+margin-top:8px
+}
 
-    footer {
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 25px;
-      margin-top: 50px;
-      font-size: 14px;
-    }
-  </style>
+.quantity-controls button{
+padding:5px 11px;
+border:1px solid #ccc;
+background:white;
+border-radius:4px;
+cursor:pointer
+}
+
+.cart-total{
+font-size:20px;
+font-weight:bold;
+margin:18px 0
+}
+
+.form-group{margin-bottom:15px}
+.form-group label{
+display:block;
+font-weight:bold;
+margin-bottom:6px
+}
+
+.checkout-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px
+}
+
+.option{
+border:1px solid #ddd;
+padding:12px;
+border-radius:6px;
+margin:8px 0
+}
+
+.option label{
+display:flex;
+align-items:center;
+gap:8px;
+cursor:pointer
+}
+
+.option input{
+width:auto
+}
+
+.notice{
+background:#fff7df;
+border:1px solid #ead89b;
+padding:12px;
+border-radius:6px;
+font-size:13px;
+margin-bottom:15px
+}
+
+.success{
+background:#e7f7ed;
+border:1px solid #a5d6b5;
+padding:18px;
+border-radius:7px;
+margin-top:15px
+}
+
+.hidden{display:none!important}
+
+.contact{
+max-width:650px;
+margin:45px auto;
+padding:25px;
+background:white;
+border-radius:9px
+}
+
+footer{
+background:#111;
+color:white;
+text-align:center;
+padding:25px;
+margin-top:50px
+}
+
+@media(max-width:600px){
+header{padding:15px}
+nav a{margin-left:8px;font-size:12px}
+.hero h2{font-size:25px}
+.checkout-grid{grid-template-columns:1fr}
+.cart-item{display:block}
+}
+</style>
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WZ27HW4"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
-  <!-- HEADER -->
-  <header>
-    <h1>TrackLab</h1>
+<!-- Google Tag Manager noscript -->
+<noscript>
+<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WZ27HW4"
+height="0" width="0"
+style="display:none;visibility:hidden"></iframe>
+</noscript>
 
-    <nav>
-      <a href="#products">Products</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+<header>
+<h1>TrackLab</h1>
+<nav>
+<a href="#products">Products</a>
+<a href="#cart-section">Cart (<span id="cart-count">0</span>)</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
 
-
-  <!-- HERO -->
-  <section class="hero">
-
-    <h2>Tracking Practice Store</h2>
-
-    <p>A simple demo website for learning Google Tag Manager and GA4.</p>
-
-    <a
-      href="#products"
-      class="btn"
-      id="shop-now">
-      Shop Now
-    </a>
-
-  </section>
-
-
-  <!-- PRODUCTS -->
-  <section class="products" id="products">
-
-    <h2>Products</h2>
-
-    <div class="product-grid">
-
-
-      <!-- PRODUCT 1 -->
-      <div class="product">
-
-        <div class="product-image">
-          Product Image
-        </div>
-
-        <h3>Classic Handbag</h3>
-
-        <p class="price">৳1,290</p>
-
-        <button
-          class="btn view-product"
-          data-product-id="HB001"
-          data-product-name="Classic Handbag"
-          data-product-price="1290">
-          View Product
-        </button>
-
-        <button
-          class="btn add-to-cart"
-          data-product-id="HB001"
-          data-product-name="Classic Handbag"
-          data-product-price="1290">
-          Add to Cart
-        </button>
-
-      </div>
-
-
-      <!-- PRODUCT 2 -->
-      <div class="product">
-
-        <div class="product-image">
-          Product Image
-        </div>
-
-        <h3>Mini Table Lamp</h3>
-
-        <p class="price">৳1,500</p>
-
-        <button
-          class="btn view-product"
-          data-product-id="LP001"
-          data-product-name="Mini Table Lamp"
-          data-product-price="1500">
-          View Product
-        </button>
-
-        <button
-          class="btn add-to-cart"
-          data-product-id="LP001"
-          data-product-name="Mini Table Lamp"
-          data-product-price="1500">
-          Add to Cart
-        </button>
-
-      </div>
-
-
-      <!-- PRODUCT 3 -->
-      <div class="product">
-
-        <div class="product-image">
-          Product Image
-        </div>
-
-        <h3>Portable Fan</h3>
-
-        <p class="price">৳590</p>
-
-        <button
-          class="btn view-product"
-          data-product-id="FN001"
-          data-product-name="Portable Fan"
-          data-product-price="590">
-          View Product
-        </button>
-
-        <button
-          class="btn add-to-cart"
-          data-product-id="FN001"
-          data-product-name="Portable Fan"
-          data-product-price="590">
-          Add to Cart
-        </button>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  
-<section id="cart-section">
-  <h2>Your Shopping Cart</h2>
-
-  <div id="cart-items">
-    Your cart is empty.
-  </div>
-
-  <h3 id="cart-total">Total: ৳0</h3>
-
-  <button id="checkout-button" type="button">
-    Proceed to Checkout
-  </button>
+<section class="hero">
+<h2>Welcome to TrackLab</h2>
+<p>A demo e-commerce store for learning professional analytics and tracking.</p>
+<a href="#products" class="btn" id="shop-now">Shop Now</a>
 </section>
 
+<!-- PRODUCT CATALOGUE -->
+<section class="container" id="products">
 
+<h2 class="section-title">Our Products</h2>
 
-  <!-- CONTACT / LEAD FORM -->
-  <section class="contact" id="contact">
+<form id="search-form" class="search-form">
+<input type="search" id="product-search"
+placeholder="Search products...">
+<button class="btn" type="submit">Search</button>
+</form>
 
-    <h2>Contact Us</h2>
+<div class="product-grid">
 
-    <form id="contact-form">
+<div class="product" data-search="classic handbag bag fashion">
+<div class="product-image">Product Image</div>
+<h3>Classic Handbag</h3>
+<p class="price">৳1,290</p>
 
-      <div class="form-group">
+<button class="btn view-product"
+data-product-id="HB001"
+data-product-name="Classic Handbag"
+data-product-price="1290">
+View Product
+</button>
 
-        <label for="name">
-          Name
-        </label>
+<button class="btn add-to-cart"
+data-product-id="HB001"
+data-product-name="Classic Handbag"
+data-product-price="1290">
+Add to Cart
+</button>
+</div>
 
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Your name"
-          required>
+<div class="product" data-search="mini table lamp light home">
+<div class="product-image">Product Image</div>
+<h3>Mini Table Lamp</h3>
+<p class="price">৳1,500</p>
 
-      </div>
+<button class="btn view-product"
+data-product-id="LP001"
+data-product-name="Mini Table Lamp"
+data-product-price="1500">
+View Product
+</button>
 
+<button class="btn add-to-cart"
+data-product-id="LP001"
+data-product-name="Mini Table Lamp"
+data-product-price="1500">
+Add to Cart
+</button>
+</div>
 
-      <div class="form-group">
+<div class="product" data-search="portable fan rechargeable">
+<div class="product-image">Product Image</div>
+<h3>Portable Fan</h3>
+<p class="price">৳590</p>
 
-        <label for="email">
-          Email
-        </label>
+<button class="btn view-product"
+data-product-id="FN001"
+data-product-name="Portable Fan"
+data-product-price="590">
+View Product
+</button>
 
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="you@example.com"
-          required>
+<button class="btn add-to-cart"
+data-product-id="FN001"
+data-product-name="Portable Fan"
+data-product-price="590">
+Add to Cart
+</button>
+</div>
 
-      </div>
+</div>
+<p id="search-message" style="margin-top:12px"></p>
+</section>
 
+<!-- CART -->
+<section class="container panel" id="cart-section">
 
-      <div class="form-group">
+<h2>Your Shopping Cart</h2>
+<p id="cart-empty">Your cart is currently empty.</p>
 
-        <label for="message">
-          Message
-        </label>
+<div id="cart-items"></div>
 
-        <textarea
-          id="message"
-          name="message"
-          placeholder="Write your message">
-        </textarea>
+<div class="cart-total" id="cart-total">
+Subtotal: ৳0
+</div>
 
-      </div>
+<button class="btn" id="checkout-button" type="button" disabled>
+Proceed to Checkout
+</button>
 
+</section>
 
-      <button
-        type="submit"
-        class="btn"
-        id="submit-form">
-        Send Message
-      </button>
+<!-- CHECKOUT -->
+<section class="container panel hidden" id="checkout-section">
 
-    </form>
+<h2>Checkout</h2>
 
-  </section>
+<div class="notice">
+This is a practice checkout. No real payment will be processed.
+</div>
 
+<h3>Order Summary</h3>
+<div id="checkout-summary"></div>
 
-  <!-- FOOTER -->
-  <footer>
+<div class="cart-total" id="checkout-total"></div>
 
-    TrackLab Demo Store
+<form id="checkout-form">
 
-  </footer>
+<h3 style="margin:20px 0 12px">Customer Information</h3>
 
+<div class="checkout-grid">
 
-  <!-- BASIC JAVASCRIPT -->
-  <script>
+<div class="form-group">
+<label for="customer-name">Full Name</label>
+<input id="customer-name" name="name"
+required placeholder="Your full name">
+</div>
 
-    /*
-     * This JavaScript is intentionally simple.
-     * We will use it later to practice:
-     *
-     * - Click tracking
-     * - Custom events
-     * - DataLayer
-     * - Event parameters
-     * - E-commerce tracking
-     */
+<div class="form-group">
+<label for="customer-email">Email</label>
+<input id="customer-email" name="email"
+type="email" required placeholder="you@example.com">
+</div>
 
-    // Make sure the GTM dataLayer exists
+<div class="form-group">
+<label for="customer-phone">Phone Number</label>
+<input id="customer-phone" name="phone"
+type="tel" required placeholder="01XXXXXXXXX">
+</div>
+
+<div class="form-group">
+<label for="customer-city">City</label>
+<input id="customer-city" name="city"
+required placeholder="Your city">
+</div>
+
+</div>
+
+<div class="form-group">
+<label for="customer-address">Delivery Address</label>
+<textarea id="customer-address" name="address"
+required placeholder="Your complete address"></textarea>
+</div>
+
+<h3 style="margin:20px 0 10px">Shipping Method</h3>
+
+<div class="option">
+<label>
+<input type="radio" name="shipping"
+value="standard" checked>
+Standard Delivery — ৳80
+</label>
+</div>
+
+<div class="option">
+<label>
+<input type="radio" name="shipping"
+value="express">
+Express Delivery — ৳150
+</label>
+</div>
+
+<h3 style="margin:20px 0 10px">Payment Method</h3>
+
+<div class="option">
+<label>
+<input type="radio" name="payment"
+value="cod" checked>
+Cash on Delivery
+</label>
+</div>
+
+<div class="option">
+<label>
+<input type="radio" name="payment"
+value="bkash">
+bKash (Demo)
+</label>
+</div>
+
+<div class="option">
+<label>
+<input type="radio" name="payment"
+value="card">
+Card (Demo)
+</label>
+</div>
+
+<button type="submit" class="btn" id="place-order">
+Place Demo Order
+</button>
+
+<button type="button" class="btn secondary"
+id="back-to-cart">
+Back to Cart
+</button>
+
+</form>
+</section>
+
+<!-- ORDER CONFIRMATION -->
+<section class="container panel hidden" id="confirmation-section">
+<h2>Order Confirmation</h2>
+<div id="confirmation-details" class="success"></div>
+<button class="btn" id="continue-shopping" type="button">
+Continue Shopping
+</button>
+</section>
+
+<!-- CONTACT / LEAD FORM -->
+<section class="contact" id="contact">
+<h2>Contact Us</h2>
+
+<form id="contact-form">
+
+<div class="form-group">
+<label for="name">Name</label>
+<input id="name" name="name" required>
+</div>
+
+<div class="form-group">
+<label for="email">Email</label>
+<input id="email" name="email" type="email" required>
+</div>
+
+<div class="form-group">
+<label for="message">Message</label>
+<textarea id="message" name="message"></textarea>
+</div>
+
+<button class="btn" type="submit">Send Message</button>
+</form>
+</section>
+
+<footer>
+TrackLab Demo Store — Learning GTM, GA4 and E-commerce Tracking
+</footer>
+
+<script>
+
+// =======================================
+// 1. INITIAL SETUP
+// =======================================
+
 window.dataLayer = window.dataLayer || [];
 
+const STORAGE_KEY = "tracklab_cart";
 
-// TrackLab cart storage
+const products = [
+{
+item_id:"HB001",
+item_name:"Classic Handbag",
+price:1290
+},
+{
+item_id:"LP001",
+item_name:"Mini Table Lamp",
+price:1500
+},
+{
+item_id:"FN001",
+item_name:"Portable Fan",
+price:590
+}
+];
+
 let cart = [];
 
-function updateCart(productId, productName, productPrice) {
-  const existingProduct = cart.find(
-    item => item.item_id === productId
-  );
-
-  if (existingProduct) {
-    existingProduct.quantity += 1;
-  } else {
-    cart.push({
-      item_id: productId,
-      item_name: productName,
-      price: productPrice,
-      quantity: 1
-    });
-  }
-
-  console.log("Current cart:", cart);
+try {
+cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+} catch(error) {
+cart = [];
 }
 
 
-// Add-to-cart buttons
-document.querySelectorAll(".add-to-cart").forEach(function(button) {
+// =======================================
+// 2. E-COMMERCE DATA LAYER
+// =======================================
 
-  button.addEventListener("click", function() {
+function pushEcommerceEvent(eventName, ecommerceData) {
 
-    const productId =
-      button.getAttribute("data-product-id");
+window.dataLayer.push({
+ecommerce:null
+});
 
-    const productName =
-      button.getAttribute("data-product-name");
+window.dataLayer.push({
+event:eventName,
+ecommerce:ecommerceData
+});
 
-    const productPrice =
-      Number(button.getAttribute("data-product-price"));
-
-
-    
-function updateCart(productId, productName, productPrice) {
-  const existingProduct = cart.find(
-    item => item.item_id === productId
-  );
-
-  if (existingProduct) {
-    existingProduct.quantity += 1;
-  } else {
-    cart.push({
-      item_id: productId,
-      item_name: productName,
-      price: productPrice,
-      quantity: 1
-    });
-  }
-
-  displayCart();
 }
+
+function getCartValue() {
+
+return cart.reduce(function(total,item) {
+return total + item.price * item.quantity;
+},0);
+
+}
+
+function getCartItems() {
+
+return cart.map(function(item) {
+return {
+item_id:item.item_id,
+item_name:item.item_name,
+price:item.price,
+quantity:item.quantity
+};
+});
+
+}
+
+
+// =======================================
+// 3. CART STORAGE
+// =======================================
+
+function saveCart() {
+
+localStorage.setItem(
+STORAGE_KEY,
+JSON.stringify(cart)
+);
+
+}
+
+
+// =======================================
+// 4. CART DISPLAY
+// =======================================
 
 function displayCart() {
-  const cartItems = document.getElementById("cart-items");
-  const cartTotal = document.getElementById("cart-total");
 
-  cartItems.innerHTML = "";
+const cartItems = document.getElementById("cart-items");
+const cartTotal = document.getElementById("cart-total");
+const cartEmpty = document.getElementById("cart-empty");
+const cartCount = document.getElementById("cart-count");
+const checkoutButton = document.getElementById("checkout-button");
 
-  if (cart.length === 0) {
-    cartItems.textContent = "Your cart is empty.";
-  }
+cartItems.innerHTML = "";
 
-  let total = 0;
+let totalQuantity = 0;
 
-  cart.forEach(function(item) {
-    const subtotal = item.price * item.quantity;
-    total += subtotal;
+cart.forEach(function(item) {
 
-    const product = document.createElement("p");
+totalQuantity += item.quantity;
 
-    product.textContent =
-      item.item_name + " × " + item.quantity +
-      " = ৳" + subtotal;
+const subtotal = item.price * item.quantity;
 
-    cartItems.appendChild(product);
-  });
+const row = document.createElement("div");
+row.className = "cart-item";
 
-  cartTotal.textContent = "Total: ৳" + total;
+const details = document.createElement("div");
+
+const name = document.createElement("strong");
+name.textContent = item.item_name;
+
+const price = document.createElement("p");
+price.textContent = "৳" + item.price + " each";
+
+details.appendChild(name);
+details.appendChild(price);
+
+const controls = document.createElement("div");
+controls.className = "quantity-controls";
+
+const minus = document.createElement("button");
+minus.textContent = "−";
+minus.type = "button";
+minus.dataset.action = "minus";
+minus.dataset.id = item.item_id;
+
+const quantity = document.createElement("span");
+quantity.textContent = item.quantity;
+
+const plus = document.createElement("button");
+plus.textContent = "+";
+plus.type = "button";
+plus.dataset.action = "plus";
+plus.dataset.id = item.item_id;
+
+const remove = document.createElement("button");
+remove.textContent = "Remove";
+remove.type = "button";
+remove.className = "danger";
+remove.dataset.action = "remove";
+remove.dataset.id = item.item_id;
+
+const subtotalText = document.createElement("strong");
+subtotalText.textContent = "৳" + subtotal;
+
+controls.append(minus,quantity,plus,remove);
+
+row.append(details,controls,subtotalText);
+
+cartItems.appendChild(row);
+
+});
+
+cartEmpty.classList.toggle("hidden",cart.length > 0);
+
+cartTotal.textContent =
+"Subtotal: ৳" + getCartValue();
+
+cartCount.textContent = totalQuantity;
+
+checkoutButton.disabled = cart.length === 0;
+
 }
 
 
-    // Send product information to the GTM dataLayer
-    // Clear previous ecommerce data
+// =======================================
+// 5. ADD TO CART
+// =======================================
+
+function addToCart(product) {
+
+const existing = cart.find(function(item) {
+return item.item_id === product.item_id;
+});
+
+if(existing) {
+existing.quantity += 1;
+} else {
+cart.push({
+...product,
+quantity:1
+});
+}
+
+saveCart();
+displayCart();
+
+pushEcommerceEvent("add_to_cart",{
+currency:"BDT",
+value:product.price,
+items:[{
+item_id:product.item_id,
+item_name:product.item_name,
+price:product.price,
+quantity:1
+}]
+});
+
+}
+
+
+// =======================================
+// 6. CART QUANTITY AND REMOVAL
+// =======================================
+
+document.getElementById("cart-items")
+.addEventListener("click",function(event) {
+
+const button = event.target.closest("button");
+
+if(!button) return;
+
+const id = button.dataset.id;
+const action = button.dataset.action;
+
+const item = cart.find(function(product) {
+return product.item_id === id;
+});
+
+if(!item) return;
+
+if(action === "plus") {
+
+addToCart({
+item_id:item.item_id,
+item_name:item.item_name,
+price:item.price
+});
+
+return;
+
+}
+
+if(action === "minus") {
+
+if(item.quantity > 1) {
+
+item.quantity -= 1;
+
+pushEcommerceEvent("remove_from_cart",{
+currency:"BDT",
+value:item.price,
+items:[{
+item_id:item.item_id,
+item_name:item.item_name,
+price:item.price,
+quantity:1
+}]
+});
+
+} else {
+
+removeCartItem(item);
+
+return;
+
+}
+
+}
+
+if(action === "remove") {
+removeCartItem(item);
+return;
+}
+
+saveCart();
+displayCart();
+
+});
+
+
+function removeCartItem(item) {
+
+const removedItem = {...item};
+
+cart = cart.filter(function(product) {
+return product.item_id !== item.item_id;
+});
+
+saveCart();
+displayCart();
+
+pushEcommerceEvent("remove_from_cart",{
+currency:"BDT",
+value:removedItem.price * removedItem.quantity,
+items:[{
+item_id:removedItem.item_id,
+item_name:removedItem.item_name,
+price:removedItem.price,
+quantity:removedItem.quantity
+}]
+});
+
+}
+
+
+// =======================================
+// 7. PRODUCT VIEW TRACKING
+// =======================================
+
+document.querySelectorAll(".view-product")
+.forEach(function(button) {
+
+button.addEventListener("click",function() {
+
+const product = {
+item_id:button.dataset.productId,
+item_name:button.dataset.productName,
+price:Number(button.dataset.productPrice)
+};
+
+pushEcommerceEvent("select_item",{
+item_list_name:"TrackLab Product Catalogue",
+items:[product]
+});
+
+pushEcommerceEvent("view_item",{
+currency:"BDT",
+value:product.price,
+items:[{
+...product,
+quantity:1
+}]
+});
+
+alert("Viewing: " + product.item_name);
+
+});
+
+});
+
+
+// =======================================
+// 8. PRODUCT LIST TRACKING
+// =======================================
+
+pushEcommerceEvent("view_item_list",{
+item_list_name:"TrackLab Product Catalogue",
+items:products.map(function(product) {
+return {
+...product
+};
+})
+});
+
+
+// =======================================
+// 9. ADD TO CART BUTTONS
+// =======================================
+
+document.querySelectorAll(".add-to-cart")
+.forEach(function(button) {
+
+button.addEventListener("click",function() {
+
+const product = {
+item_id:button.dataset.productId,
+item_name:button.dataset.productName,
+price:Number(button.dataset.productPrice)
+};
+
+addToCart(product);
+
+alert(product.item_name + " added to cart!");
+
+});
+
+});
+
+
+// =======================================
+// 10. PRODUCT SEARCH
+// =======================================
+
+document.getElementById("search-form")
+.addEventListener("submit",function(event) {
+
+event.preventDefault();
+
+const query = document.getElementById("product-search")
+.value.trim().toLowerCase();
+
+let results = 0;
+
+document.querySelectorAll(".product")
+.forEach(function(product) {
+
+const match = product.dataset.search.includes(query);
+
+product.classList.toggle("hidden",!match);
+
+if(match) results++;
+
+});
+
+document.getElementById("search-message").textContent =
+results + " product(s) found.";
+
+if(query) {
+
 window.dataLayer.push({
-  ecommerce: null
+event:"search",
+search_term:query
 });
 
-// Send GA4 recommended ecommerce structure
+}
+
+});
+
+
+// =======================================
+// 11. CHECKOUT START
+// =======================================
+
+const checkoutSection =
+document.getElementById("checkout-section");
+
+document.getElementById("checkout-button")
+.addEventListener("click",function() {
+
+if(cart.length === 0) return;
+
+pushEcommerceEvent("view_cart",{
+currency:"BDT",
+value:getCartValue(),
+items:getCartItems()
+});
+
+pushEcommerceEvent("begin_checkout",{
+currency:"BDT",
+value:getCartValue(),
+items:getCartItems()
+});
+
+renderCheckout();
+
+checkoutSection.classList.remove("hidden");
+
+checkoutSection.scrollIntoView({
+behavior:"smooth"
+});
+
+});
+
+
+function getShippingCost() {
+
+const selected =
+document.querySelector('input[name="shipping"]:checked');
+
+return selected.value === "express" ? 150 : 80;
+
+}
+
+
+function renderCheckout() {
+
+const summary = document.getElementById("checkout-summary");
+
+summary.innerHTML = "";
+
+cart.forEach(function(item) {
+
+const row = document.createElement("p");
+
+row.textContent =
+item.item_name + " × " + item.quantity +
+" — ৳" + (item.price * item.quantity);
+
+summary.appendChild(row);
+
+});
+
+document.getElementById("checkout-total").textContent =
+"Items: ৳" + getCartValue() +
+" + Shipping: ৳" + getShippingCost() +
+" = Total: ৳" + (getCartValue() + getShippingCost());
+
+}
+
+
+document.querySelectorAll('input[name="shipping"]')
+.forEach(function(input) {
+
+input.addEventListener("change",renderCheckout);
+
+});
+
+
+// =======================================
+// 12. BACK TO CART
+// =======================================
+
+document.getElementById("back-to-cart")
+.addEventListener("click",function() {
+
+checkoutSection.classList.add("hidden");
+
+document.getElementById("cart-section")
+.scrollIntoView({behavior:"smooth"});
+
+});
+
+
+// =======================================
+// 13. PURCHASE TRACKING
+// =======================================
+
+let orderProcessing = false;
+
+document.getElementById("checkout-form")
+.addEventListener("submit",function(event) {
+
+event.preventDefault();
+
+if(orderProcessing || cart.length === 0) return;
+
+orderProcessing = true;
+
+const button = document.getElementById("place-order");
+button.disabled = true;
+button.textContent = "Processing...";
+
+const form = event.target;
+
+const shippingMethod =
+form.querySelector('input[name="shipping"]:checked').value;
+
+const paymentMethod =
+form.querySelector('input[name="payment"]:checked').value;
+
+const shippingCost = getShippingCost();
+
+const itemValue = getCartValue();
+
+const orderItems = getCartItems();
+
+const orderValue = itemValue + shippingCost;
+
+
+// Shipping event
+pushEcommerceEvent("add_shipping_info",{
+currency:"BDT",
+value:itemValue,
+shipping:shippingCost,
+shipping_tier:shippingMethod,
+items:orderItems
+});
+
+
+// Payment event
+pushEcommerceEvent("add_payment_info",{
+currency:"BDT",
+value:itemValue,
+payment_type:paymentMethod,
+items:orderItems
+});
+
+
+// Generate unique demo transaction ID
+const transactionId =
+"TL-" + Date.now() + "-" +
+Math.floor(Math.random() * 10000);
+
+
+// Purchase event
+pushEcommerceEvent("purchase",{
+transaction_id:transactionId,
+currency:"BDT",
+value:itemValue,
+shipping:shippingCost,
+tax:0,
+items:orderItems
+});
+
+
+// Save demo order
+const order = {
+transaction_id:transactionId,
+value:orderValue,
+items:orderItems
+};
+
+localStorage.setItem(
+"tracklab_last_order",
+JSON.stringify(order)
+);
+
+
+// Confirmation
+document.getElementById("confirmation-details").textContent =
+"Thank you, " +
+document.getElementById("customer-name").value +
+"! Your demo order " + transactionId +
+" has been placed. Total: ৳" + orderValue +
+". Payment method: " + paymentMethod + ".";
+
+
+// Clear cart
+cart = [];
+saveCart();
+displayCart();
+
+checkoutSection.classList.add("hidden");
+
+const confirmation =
+document.getElementById("confirmation-section");
+
+confirmation.classList.remove("hidden");
+
+confirmation.scrollIntoView({behavior:"smooth"});
+
+});
+
+
+// =======================================
+// 14. CONTINUE SHOPPING
+// =======================================
+
+document.getElementById("continue-shopping")
+.addEventListener("click",function() {
+
+document.getElementById("confirmation-section")
+.classList.add("hidden");
+
+document.getElementById("products")
+.scrollIntoView({behavior:"smooth"});
+
+orderProcessing = false;
+
+const button = document.getElementById("place-order");
+button.disabled = false;
+button.textContent = "Place Demo Order";
+
+document.getElementById("checkout-form").reset();
+
+});
+
+
+// =======================================
+// 15. CONTACT FORM / LEAD TRACKING
+// =======================================
+
+document.getElementById("contact-form")
+.addEventListener("submit",function(event) {
+
+event.preventDefault();
+
 window.dataLayer.push({
-  event: "add_to_cart",
-
-  ecommerce: {
-    currency: "BDT",
-    value: productPrice,
-
-    items: [
-      {
-        item_id: productId,
-        item_name: productName,
-        price: productPrice,
-        quantity: 1
-      }
-    ]
-  }
+event:"generate_lead",
+form_name:"Contact Form"
 });
 
-    alert(productName + " added to cart!");
+alert("Thank you! Your message has been submitted.");
 
-  });
+event.target.reset();
 
 });
 
 
-    // Contact form
-    document
-      .getElementById("contact-form")
-      .addEventListener("submit", function(event) {
+// =======================================
+// 16. INITIAL CART DISPLAY
+// =======================================
 
-        event.preventDefault();
+displayCart();
 
-        alert("Thank you! Your message has been submitted.");
-
-      });
-
-  </script>
+</script>
 
 </body>
 </html>
