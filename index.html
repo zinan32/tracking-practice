@@ -720,6 +720,19 @@ quantity:1
 
 }
 
+  document.querySelector('nav a[href="#cart-section"]')
+.addEventListener("click", function() {
+
+    if (cart.length === 0) return;
+
+    pushEcommerceEvent("view_cart", {
+        currency: "BDT",
+        value: getCartValue(),
+        items: getCartItems()
+    });
+
+});
+
 
 // =======================================
 // 6. CART QUANTITY AND REMOVAL
@@ -941,12 +954,6 @@ document.getElementById("checkout-button")
 .addEventListener("click",function() {
 
 if(cart.length === 0) return;
-
-pushEcommerceEvent("view_cart",{
-currency:"BDT",
-value:getCartValue(),
-items:getCartItems()
-});
 
 pushEcommerceEvent("begin_checkout",{
 currency:"BDT",
